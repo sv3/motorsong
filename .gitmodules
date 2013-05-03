@@ -1,0 +1,3 @@
+[submodule "PyStepRocker"]
+	path = PyStepRocker
+	url = https://github.com/sv3/PyStepRocker.git

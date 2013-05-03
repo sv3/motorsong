@@ -1,0 +1,14 @@
+Metadata-Version: 1.1
+Name: rtmidi2
+Version: 0.3.1
+Summary: Python wrapper for RtMidi written in Cython. Allows sending raw messages, multi-port input and sending multiple messages in one call.
+Home-page: https://github.com/gesellkammer/rtmidi2
+Author: originally by Guido Lorenz, modified by Eduardo Moguillansky
+Author-email: code@superquadratic.net
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Cython
+Classifier: Topic :: Multimedia :: Sound/Audio :: MIDI
+Classifier: License :: OSI Approved :: MIT License
