@@ -1,6 +1,6 @@
 
 import argparse
-import rtmidi
+import rtmidi_python as rtmidi
 import PyStepRocker
 from PyStepRocker.TMCM import *
 from time import sleep
@@ -32,8 +32,10 @@ def connect_steprocker(port):
 def connect_midi(port=0):
 
     midiin = rtmidi.MidiIn()
-    numports = midiin.get_port_count()
-    ports = midiin.get_ports()
+    ports = midiin.ports
+    numports = len(ports)
+    print numports
+    print ports
 
     if numports > 1:
         print 'Found %i available midi ports:' % numports
@@ -48,7 +50,7 @@ def connect_midi(port=0):
     midiin.open_port(port)
     print 'Connected to midi port %s' % port
 
-    midiin.set_callback(handle_midi_message)
+    midiin.callback = handle_midi_message
 
     return midiin
 
@@ -61,7 +63,7 @@ def calc_frequency(note):
     return int(freq)
     
 
-def handle_midi_message(event, data=None):
+def handle_midi_message(message, deltatime, data=None):
 
     # save the currently held notes so we can stop when the last one is released"
     global notestack
@@ -69,13 +71,12 @@ def handle_midi_message(event, data=None):
     debug = False
     if args.debug in ('all', 'midi'):
         debug = True
-    message, deltatime = event
     status, note, velocity = message
 
     if debug:
         print 'incoming midi: %s' % message
 
-    if velocity > 0:
+    if velocity > 0 and status == 144:
         notestack.append(note)
         freq = calc_frequency(note)
         if debug:
